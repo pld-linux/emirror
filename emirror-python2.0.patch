@@ -1,0 +1,20 @@
+--- emirror-2.1.17/configure.in~	Tue Aug 15 14:19:54 2000
++++ emirror-2.1.17/configure.in	Fri Apr 13 04:04:40 2001
+@@ -34,7 +34,7 @@
+ then
+     echo failed. Get a more recent version from www.python.org !
+     exit 1
+-else
++elif test  $PYTHONMAJOR -lt 2 ; then
+     if test $PYTHONMINOR -lt 5
+     then
+         echo failed. Get a more recent version from www.python.org !
+@@ -42,6 +42,8 @@
+     else
+         echo ok
+     fi
++else
++   echo ok
+ fi
+ 
+ dnl Check for ftplib
