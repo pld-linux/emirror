@@ -10,6 +10,7 @@ Source0:	ftp://eclipt.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}.tar.
 Patch0:		%{name}-pld.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	fhs-compliance
 BuildRequires:	python-devel >= 2.1
 Requires:	python >= 2.1
 BuildArch:	noarch
