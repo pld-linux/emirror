@@ -2,7 +2,7 @@ Summary:	FTP mirroring program
 Summary(pl):	Program do mirrorowania FTP
 Name:		emirror
 Version:	2.1.21
-Release:	3
+Release:	4
 License:	GPL
 Group:		Networking/Utilities
 Source0:	ftp://eclipt.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}.tar.gz
@@ -29,11 +29,11 @@ Program do mirrorowania FTP.
 %{__aclocal}
 %{__autoconf}
 %configure \
-	--with-htmldir=/home/services/httpd/html/mirrors
+	--with-htmldir=/srv/httpd/html/mirrors
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/home/services/httpd/html/mirrors
+install -d $RPM_BUILD_ROOT/srv/httpd/html/mirrors
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -44,8 +44,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc doc/*
-%dir /home/services/httpd/html/mirrors
-/home/services/httpd/html/mirrors/*
+%dir /srv/httpd/html/mirrors
+/srv/httpd/html/mirrors/*
 %config(noreplace) %{_sysconfdir}/emirror
 %attr(755,root,root) %{_bindir}/*
 %{_prefix}/lib/emirror
