@@ -8,7 +8,7 @@ Source:		ftp://ftp.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}-pre9.ta
 Patch:		emirror-cfg.patch
 Group:		Networking/Utilities
 Group(pl):	Sieciowe/Narzêdzia
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Requires:	python
 BuildArch:	noarch
 
