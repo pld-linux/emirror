@@ -1,16 +1,16 @@
 Summary:	FTP mirroring program.
 Summary(pl):	Program do mirrorowania FTP.
 Name:		emirror
-Version:	2.1
-Release:	1pre9
+Version:	2.1.17
+Release:	1
 License:	GPL
-Source0:	ftp://ftp.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}-pre9.tar.bz2
-Patch0:		emirror-cfg.patch
 Group:		Networking/Utilities
 Group(pl):	Sieciowe/Narzêdzia
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+Source0:	ftp://eclipt.uni-klu.ac.at:/pub/projects/emirror/%{name}-%{version}.tar.gz
+Patch0:		emirror-cfg.patch
 Requires:	python
 BuildArch:	noarch
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 FTP mirroring program.
@@ -19,7 +19,7 @@ FTP mirroring program.
 Program do mirrorowania FTP.
 
 %prep
-%setup -q -n %{name}-%{version}-pre9
+%setup -q
 %patch -p1
 
 %build
@@ -46,14 +46,15 @@ rm -f *.bak
 
 install general.cfg $RPM_BUILD_ROOT%{_sysconfdir}/emirror
 
-gzip -9nf doc/* Readme $RPM_BUILD_ROOT%{_mandir}/man1/*
+gzip -9nf doc/* $RPM_BUILD_ROOT%{_mandir}/man1/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc doc/* Readme.gz
+%doc doc/*
+%config(noreplace) /etc/emirror
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/emirror
 %{_mandir}/man1/*
