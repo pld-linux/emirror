@@ -44,7 +44,7 @@ diff -urN emirror-2.1.19/bin/mirror.in emirror-2.1.19.new/bin/mirror.in
  # Start the mirror program and update the index page 
  
 -emirror -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/ -n @HTMLDIR@
-+emirror -- -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/
++emirror -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/
 diff -urN emirror-2.1.19/bin/updateindex.in emirror-2.1.19.new/bin/updateindex.in
 --- emirror-2.1.19/bin/updateindex.in	Sun Dec  3 11:34:33 2000
 +++ emirror-2.1.19.new/bin/updateindex.in	Thu Aug 16 21:17:33 2001
@@ -53,7 +53,7 @@ diff -urN emirror-2.1.19/bin/updateindex.in emirror-2.1.19.new/bin/updateindex.i
  # Start the mirror program and update the index page 
  
 -emirror -v -c @sysconfdir@/emirror/general.cfg -n @HTMLDIR@
-+emirror -- -v -c @sysconfdir@/emirror/general.cfg
++emirror -v -c @sysconfdir@/emirror/general.cfg
 diff -urN emirror-2.1.19/etc/eclipt-index-php.template emirror-2.1.19.new/etc/eclipt-index-php.template
 --- emirror-2.1.19/etc/eclipt-index-php.template	Sun Apr 15 10:09:01 2001
 +++ emirror-2.1.19.new/etc/eclipt-index-php.template	Thu Aug 16 21:21:34 2001
