@@ -30,7 +30,7 @@ rm -rf $RPM_BUILD_ROOT
 make install \
 	prefix=$RPM_BUILD_ROOT/usr \
 	bindir=$RPM_BUILD_ROOT/usr/bin \
-	libdir=$RPM_BUILD_ROOT/usr/lib/emirror \
+	libdir=$RPM_BUILD_ROOT%{_libdir}/emirror \
 	etcdir=$RPM_BUILD_ROOT/etc/emirror \
 	docdir=$RPM_BUILD_ROOT/usr/doc/emirror
 
@@ -42,7 +42,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc documentation/* html README scripts/mirror
 %attr(755, root, root) /usr/bin/emconvert
 %attr(755, root, root) /usr/bin/emirror
-/usr/lib/emirror
+%{_libdir}/emirror
 
 %changelog
 * Sat Dec 05 1998 Arkadiusz Mi¶kiewicz <misiek@misiek.eu.org>
