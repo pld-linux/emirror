@@ -26,7 +26,7 @@ Program do mirrorowania FTP.
 
 %build
 aclocal
-autoconf
+%{__autoconf}
 %configure \
 	--with-htmldir=/home/httpd/html/mirrors
 
