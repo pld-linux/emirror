@@ -28,11 +28,11 @@ Program do mirrorowania FTP.
 %{__aclocal}
 %{__autoconf}
 %configure \
-	--with-htmldir=/home/httpd/html/mirrors
+	--with-htmldir=/home/services/httpd/html/mirrors
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT/home/httpd/html/mirrors
+install -d $RPM_BUILD_ROOT/home/services/httpd/html/mirrors
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
@@ -42,8 +42,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc doc/*
-%dir /home/httpd/html/mirrors
-/home/httpd/html/mirrors/*
+%dir /home/services/httpd/html/mirrors
+/home/services/httpd/html/mirrors/*
 %config(noreplace) %{_sysconfdir}/emirror
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/emirror
