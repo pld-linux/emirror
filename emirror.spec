@@ -48,5 +48,5 @@ rm -rf $RPM_BUILD_ROOT
 /home/services/httpd/html/mirrors/*
 %config(noreplace) %{_sysconfdir}/emirror
 %attr(755,root,root) %{_bindir}/*
-%{_libdir}/emirror
+%{_prefix}/lib/emirror
 %{_mandir}/man1/*
