@@ -8,6 +8,7 @@ Group:		Networking/Utilities
 Group(pl):	Sieciowe/Narzêdzia
 Source0:	ftp://eclipt.uni-klu.ac.at:/pub/projects/emirror/%{name}-%{version}.tar.gz
 Patch0:		%{name}-cfg.patch
+BuildRequires:	python
 Requires:	python
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
