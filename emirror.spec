@@ -3,9 +3,9 @@ Summary(pl):	Program do mirrorowania FTP.
 Name:		emirror
 Version:	2.1
 Release:	1pre9
-Copyright:	GPL
-Source:		ftp://ftp.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}-pre9.tar.bz2
-Patch:		emirror-cfg.patch
+License:	GPL
+Source0:	ftp://ftp.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}-pre9.tar.bz2
+Patch0:		emirror-cfg.patch
 Group:		Networking/Utilities
 Group(pl):	Sieciowe/Narzêdzia
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -23,7 +23,7 @@ Program do mirrorowania FTP.
 %patch -p1
 
 %build
-./configure --prefix=/usr
+./configure --prefix=%{_prefix}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -32,7 +32,7 @@ make install \
 	bindir=$RPM_BUILD_ROOT%{_bindir} \
 	mandir=$RPM_BUILD_ROOT%{_mandir}/man1 \
 	libdir=$RPM_BUILD_ROOT%{_libdir}/emirror \
-	etcdir=$RPM_BUILD_ROOT/etc/emirror \
+	etcdir=$RPM_BUILD_ROOT%{_sysconfdir}/emirror \
 	docdir=$RPM_BUILD_ROOT%{_docdir}/emirror
 
 (\
@@ -44,7 +44,7 @@ sed 's#@OUTPUTDIRECTORY@#/home/httpd/htdocs/mirrors#' updateindex.bak > updatein
 rm -f *.bak
 )
 
-install general.cfg $RPM_BUILD_ROOT/etc/emirror
+install general.cfg $RPM_BUILD_ROOT%{_sysconfdir}/emirror
 
 gzip -9nf doc/* Readme $RPM_BUILD_ROOT%{_mandir}/man1/*
 
