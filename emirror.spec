@@ -2,7 +2,7 @@ Summary:	FTP mirroring program.
 Summary(pl):	Program do mirrorowania FTP.
 Name:		emirror
 Version:	2.1.17
-Release:	3
+Release:	4
 License:	GPL
 Group:		Networking/Utilities
 Group(pl):	Sieciowe/Narzêdzia
@@ -12,7 +12,7 @@ Patch0:		%{name}-pld.patch
 Patch1:		%{name}-php.patch
 Patch2:		%{name}-python2.0.patch
 BuildRequires:	python-devel
-Requires:	python
+Requires:	python >= 2.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
