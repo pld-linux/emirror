@@ -1,8 +1,8 @@
 Summary:	FTP mirroring program
 Summary(pl):	Program do mirrorowania FTP
 Name:		emirror
-Version:	2.1.19
-Release:	2
+Version:	2.1.21
+Release:	1
 License:	GPL
 Group:		Networking/Utilities
 Source0:	ftp://eclipt.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}.tar.gz

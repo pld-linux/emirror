@@ -1,7 +1,7 @@
-diff -urN emirror-2.1.19/Makefile.in emirror-2.1.19.new/Makefile.in
---- emirror-2.1.19/Makefile.in	Sun Jan 21 20:10:27 2001
-+++ emirror-2.1.19.new/Makefile.in	Thu Aug 16 21:21:05 2001
-@@ -1,18 +1,19 @@
+diff -ur emirror-2.1.21.orig/Makefile.in emirror-2.1.21/Makefile.in
+--- emirror-2.1.21.orig/Makefile.in	Fri Apr  5 18:45:53 2002
++++ emirror-2.1.21/Makefile.in	Mon May 20 15:58:36 2002
+@@ -1,19 +1,20 @@
  
  prefix=@prefix@
  sysconfdir=@sysconfdir@
@@ -16,6 +16,7 @@ diff -urN emirror-2.1.19/Makefile.in emirror-2.1.19.new/Makefile.in
 +etcdir=$(DESTDIR)$(sysconfdir)/emirror
 +mandir=$(DESTDIR)$(prefix)/share/man/man1
 +htmldir=$(DESTDIR)@HTMLDIR@
+ THEMEDIRS:=blue eclipt eclipt-php freshmeat zope
  
  all: 
  	@echo There\'s no need to compile anything - use \"make install\"
@@ -25,65 +26,48 @@ diff -urN emirror-2.1.19/Makefile.in emirror-2.1.19.new/Makefile.in
 +	@echo Installing files in $(DESTDIR)$(prefix) ...
  	@$(INSTALL) -d $(bindir)
  	@$(INSTALL) emirror $(bindir)
- 	@$(INSTALL) emirrortest $(bindir)
-@@ -29,7 +30,8 @@
+ 	@$(INSTALL) -d $(libdir)
+@@ -29,6 +30,7 @@
  	@$(INSTALL) -b -m 644 etc/*.cfg $(etcdir)
  	@$(INSTALL) -b -m 644 etc/email-addresses $(etcdir)
  	@$(INSTALL) -m 644 etc/*.template $(etcdir)
--	@$(INSTALL) -m 644 etc/*.gif $(etcdir)
-+	@$(INSTALL) -m 644 etc/*.gif $(htmldir)
 +	@$(INSTALL) -m 644 etc/*.inc $(htmldir)
  	@$(INSTALL) -d $(etcdir)/active
  	@$(INSTALL) -d $(etcdir)/unused
- 	@$(INSTALL) -m 644 etc/unused/*.cfg $(etcdir)/unused
-diff -urN emirror-2.1.19/bin/mirror.in emirror-2.1.19.new/bin/mirror.in
---- emirror-2.1.19/bin/mirror.in	Sun Dec  3 10:59:25 2000
-+++ emirror-2.1.19.new/bin/mirror.in	Thu Aug 16 21:17:22 2001
-@@ -17,4 +17,4 @@
+ 	@$(INSTALL) -d $(etcdir)/themes
+diff -ur emirror-2.1.21.orig/bin/mirror.in emirror-2.1.21/bin/mirror.in
+--- emirror-2.1.21.orig/bin/mirror.in	Sat Feb 16 08:34:13 2002
++++ emirror-2.1.21/bin/mirror.in	Mon May 20 15:58:36 2002
+@@ -13,4 +13,4 @@
+ fi;
  
  # Start the mirror program and update the index page 
- 
 -emirror -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/ -n @HTMLDIR@
 +emirror -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/
-diff -urN emirror-2.1.19/bin/updateindex.in emirror-2.1.19.new/bin/updateindex.in
---- emirror-2.1.19/bin/updateindex.in	Sun Dec  3 11:34:33 2000
-+++ emirror-2.1.19.new/bin/updateindex.in	Thu Aug 16 21:17:33 2001
-@@ -10,4 +10,4 @@
+diff -ur emirror-2.1.21.orig/bin/updateindex.in emirror-2.1.21/bin/updateindex.in
+--- emirror-2.1.21.orig/bin/updateindex.in	Sat Feb 16 08:40:28 2002
++++ emirror-2.1.21/bin/updateindex.in	Mon May 20 15:58:36 2002
+@@ -8,4 +8,4 @@
+ export PATH EMIRRORCFGPATH
  
  # Start the mirror program and update the index page 
- 
 -emirror -v -c @sysconfdir@/emirror/general.cfg -n @HTMLDIR@
 +emirror -v -c @sysconfdir@/emirror/general.cfg
-diff -urN emirror-2.1.19/etc/eclipt-index-php.template emirror-2.1.19.new/etc/eclipt-index-php.template
---- emirror-2.1.19/etc/eclipt-index-php.template	Sun Apr 15 10:09:01 2001
-+++ emirror-2.1.19.new/etc/eclipt-index-php.template	Thu Aug 16 21:21:34 2001
-@@ -1,4 +1,4 @@
--<? include "/home/htdocs/include/generic.inc"; ?>
-+<? include "generic.inc"; ?>
- <? HtmlHeader(""); ?>
- 
-     <spacer type="vertical" size=15>
-diff -urN emirror-2.1.19/etc/eclipt-logfile-php.template emirror-2.1.19.new/etc/eclipt-logfile-php.template
---- emirror-2.1.19/etc/eclipt-logfile-php.template	Sun Apr 15 10:10:19 2001
-+++ emirror-2.1.19.new/etc/eclipt-logfile-php.template	Thu Aug 16 21:21:18 2001
-@@ -1,4 +1,4 @@
--<? include "/home/htdocs/include/generic.inc"; ?>
-+<? include "generic.inc"; ?>
- <? HtmlHeader(""); ?>
- 
-   <spacer type="vertical" size=15>
-diff -urN emirror-2.1.19/etc/eclipt-summary-php.template emirror-2.1.19.new/etc/eclipt-summary-php.template
---- emirror-2.1.19/etc/eclipt-summary-php.template	Sun Apr 15 10:10:48 2001
-+++ emirror-2.1.19.new/etc/eclipt-summary-php.template	Thu Aug 16 21:21:47 2001
-@@ -1,4 +1,4 @@
--<? include "/home/htdocs/include/generic.inc"; ?>
-+<? include "generic.inc"; ?>
- <? HtmlHeader(""); ?>
- 
-     <spacer type="vertical" size=15>
-diff -urN emirror-2.1.19/etc/general.cfg.in emirror-2.1.19.new/etc/general.cfg.in
---- emirror-2.1.19/etc/general.cfg.in	Fri Apr 13 09:21:43 2001
-+++ emirror-2.1.19.new/etc/general.cfg.in	Thu Aug 16 21:18:59 2001
+diff -ur emirror-2.1.21.orig/configure.in emirror-2.1.21/configure.in
+--- emirror-2.1.21.orig/configure.in	Sat Feb 16 08:42:14 2002
++++ emirror-2.1.21/configure.in	Mon May 20 16:00:50 2002
+@@ -27,7 +27,7 @@
+ AC_MSG_CHECKING(for Python version >= 1.5 )
+ AC_ARG_WITH(python)
+ PYTHONVERSION=`python -c "import sys,string;x=sys.version;print string.split(x)[[0]]"`
+-echo -n $PYTHONVERSION\ 
++echo -n $PYTHONVERSION
+ PYTHONMAJOR=`echo $PYTHONVERSION | awk -F . '{print $1}'`
+ PYTHONMINOR=`echo $PYTHONVERSION | awk -F . '{print $2}'`
+ if test $PYTHONMAJOR -lt 2
+diff -ur emirror-2.1.21.orig/etc/general.cfg.in emirror-2.1.21/etc/general.cfg.in
+--- emirror-2.1.21.orig/etc/general.cfg.in	Fri Apr 13 09:21:43 2001
++++ emirror-2.1.21/etc/general.cfg.in	Mon May 20 15:58:36 2002
 @@ -1,18 +1,21 @@
  [general]
 +Download-url: ftp://localhost/pub/mirrors
@@ -111,9 +95,36 @@ diff -urN emirror-2.1.19/etc/general.cfg.in emirror-2.1.19.new/etc/general.cfg.i
 -Summary-Template: @SYSCONFDIR@/emirror/summary.template
 \ No newline at end of file
 +Summary-Template: @SYSCONFDIR@/emirror/summary.template
-diff -urN emirror-2.1.19/man/emirror.1 emirror-2.1.19.new/man/emirror.1
---- emirror-2.1.19/man/emirror.1	Fri Apr 13 10:28:46 2001
-+++ emirror-2.1.19.new/man/emirror.1	Thu Aug 16 21:19:55 2001
+diff -ur emirror-2.1.21.orig/etc/themes/eclipt-php/index.template emirror-2.1.21/etc/themes/eclipt-php/index.template
+--- emirror-2.1.21.orig/etc/themes/eclipt-php/index.template	Mon Aug 13 22:26:48 2001
++++ emirror-2.1.21/etc/themes/eclipt-php/index.template	Mon May 20 15:58:36 2002
+@@ -1,4 +1,4 @@
+-<? include "/home/httpd/htdocs/include/emirror.inc"; ?>
++<? include "emirror.inc"; ?>
+ <? FullHtmlHeader("$title$"); ?>
+ 
+   <script language="JavaScript">
+diff -ur emirror-2.1.21.orig/etc/themes/eclipt-php/logfile.template emirror-2.1.21/etc/themes/eclipt-php/logfile.template
+--- emirror-2.1.21.orig/etc/themes/eclipt-php/logfile.template	Mon Aug 13 21:33:35 2001
++++ emirror-2.1.21/etc/themes/eclipt-php/logfile.template	Mon May 20 15:58:36 2002
+@@ -1,4 +1,4 @@
+-<? include "/home/httpd/htdocs/include/emirror.inc"; ?>
++<? include "emirror.inc"; ?>
+ <? FullHtmlHeader("$title$"); ?>
+ 
+   <script language="JavaScript">
+diff -ur emirror-2.1.21.orig/etc/themes/eclipt-php/summary.template emirror-2.1.21/etc/themes/eclipt-php/summary.template
+--- emirror-2.1.21.orig/etc/themes/eclipt-php/summary.template	Mon Aug 13 22:27:09 2001
++++ emirror-2.1.21/etc/themes/eclipt-php/summary.template	Mon May 20 15:58:36 2002
+@@ -1,4 +1,4 @@
+-<? include "/home/httpd/htdocs/include/emirror.inc"; ?>
++<? include "emirror.inc"; ?>
+ <? FullHtmlHeader("$title$"); ?>
+ 
+   <script language="JavaScript">
+diff -ur emirror-2.1.21.orig/man/emirror.1 emirror-2.1.21/man/emirror.1
+--- emirror-2.1.21.orig/man/emirror.1	Mon Sep 10 17:38:16 2001
++++ emirror-2.1.21/man/emirror.1	Mon May 20 15:58:36 2002
 @@ -120,7 +120,7 @@
  .IP "--mail-users"
  Specifies a file, which contains a list of valid email-addresses
