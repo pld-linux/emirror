@@ -7,7 +7,7 @@ Copyright:   GPL
 Source:      ftp://ftp.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}-pre9.tar.bz2
 Patch:	     emirror.cfg.diff
 Group:       Networking/Utilities
-Group(pl):   Sieæ/Narzêdzia
+Group(pl):   Sieciowe/Narzêdzia
 BuildRoot:	/tmp/%{name}-%{version}-root
 Requires:    python
 BuildArch:   noarch
