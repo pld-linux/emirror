@@ -29,7 +29,7 @@ Program do mirrorowania FTP.
 rm -rf $RPM_BUILD_ROOT
 make install \
 	prefix=$RPM_BUILD_ROOT/usr \
-	bindir=$RPM_BUILD_ROOT/usr/bin \
+	bindir=$RPM_BUILD_ROOT%{_bindir} \
 	libdir=$RPM_BUILD_ROOT%{_libdir}/emirror \
 	etcdir=$RPM_BUILD_ROOT/etc/emirror \
 	docdir=$RPM_BUILD_ROOT/usr/doc/emirror
@@ -40,8 +40,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644, root, root, 755)
 %doc documentation/* html README scripts/mirror
-%attr(755, root, root) /usr/bin/emconvert
-%attr(755, root, root) /usr/bin/emirror
+%attr(755, root, root) %{_bindir}/emconvert
+%attr(755, root, root) %{_bindir}/emirror
 %{_libdir}/emirror
 
 %changelog
