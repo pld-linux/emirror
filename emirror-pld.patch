@@ -1,24 +1,73 @@
-diff -urN emirror-2.1.17/bin/mirror.in emirror-2.1.17.pld/bin/mirror.in
---- emirror-2.1.17/bin/mirror.in	Tue Aug 15 14:21:40 2000
-+++ emirror-2.1.17.pld/bin/mirror.in	Sat Sep  9 19:46:17 2000
-@@ -17,4 +17,4 @@
+diff -ur emirror-2.1.21.orig/Makefile.in emirror-2.1.21/Makefile.in
+--- emirror-2.1.21.orig/Makefile.in	Fri Apr  5 18:45:53 2002
++++ emirror-2.1.21/Makefile.in	Mon May 20 15:58:36 2002
+@@ -1,19 +1,20 @@
+ 
+ prefix=@prefix@
+ sysconfdir=@sysconfdir@
+-bindir=$(prefix)/bin
++bindir=$(DESTDIR)$(prefix)/bin
+ INSTALL=@INSTALL@
+ PYTHON=@PYTHON@
+-libdir=$(prefix)/lib/emirror
+-etcdir=$(sysconfdir)/emirror
+-mandir=$(prefix)/man/man1
++libdir=$(DESTDIR)$(prefix)/lib/emirror
++etcdir=$(DESTDIR)$(sysconfdir)/emirror
++mandir=$(DESTDIR)$(prefix)/share/man/man1
++htmldir=$(DESTDIR)@HTMLDIR@
+ THEMEDIRS:=blue eclipt eclipt-php freshmeat zope
+ 
+ all: 
+ 	@echo There\'s no need to compile anything - use \"make install\"
+ 
+ install :
+-	@echo Installing files in $(prefix) ...
++	@echo Installing files in $(DESTDIR)$(prefix) ...
+ 	@$(INSTALL) -d $(bindir)
+ 	@$(INSTALL) emirror $(bindir)
+ 	@$(INSTALL) -d $(libdir)
+@@ -29,6 +30,7 @@
+ 	@$(INSTALL) -b -m 644 etc/*.cfg $(etcdir)
+ 	@$(INSTALL) -b -m 644 etc/email-addresses $(etcdir)
+ 	@$(INSTALL) -m 644 etc/*.template $(etcdir)
++	@$(INSTALL) -m 644 etc/*.inc $(htmldir)
+ 	@$(INSTALL) -d $(etcdir)/active
+ 	@$(INSTALL) -d $(etcdir)/unused
+ 	@$(INSTALL) -d $(etcdir)/themes
+diff -ur emirror-2.1.21.orig/bin/mirror.in emirror-2.1.21/bin/mirror.in
+--- emirror-2.1.21.orig/bin/mirror.in	Sat Feb 16 08:34:13 2002
++++ emirror-2.1.21/bin/mirror.in	Mon May 20 15:58:36 2002
+@@ -13,4 +13,4 @@
+ fi;
  
  # Start the mirror program and update the index page 
- 
--emirror -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/ -n @OUTPUTDIRECTORY@
-+emirror -- -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/
-diff -urN emirror-2.1.17/bin/updateindex.in emirror-2.1.17.pld/bin/updateindex.in
---- emirror-2.1.17/bin/updateindex.in	Tue Aug 15 14:21:20 2000
-+++ emirror-2.1.17.pld/bin/updateindex.in	Sat Sep  9 19:46:34 2000
-@@ -10,4 +10,4 @@
+-emirror -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/ -n @HTMLDIR@
++emirror -v -c @sysconfdir@/emirror/general.cfg -d @sysconfdir@/emirror/active/
+diff -ur emirror-2.1.21.orig/bin/updateindex.in emirror-2.1.21/bin/updateindex.in
+--- emirror-2.1.21.orig/bin/updateindex.in	Sat Feb 16 08:40:28 2002
++++ emirror-2.1.21/bin/updateindex.in	Mon May 20 15:58:36 2002
+@@ -8,4 +8,4 @@
+ export PATH EMIRRORCFGPATH
  
  # Start the mirror program and update the index page 
- 
--emirror -v -c @sysconfdir@/emirror/general.cfg -n @OUTPUTDIRECTORY@
-+emirror -- -v -c @sysconfdir@/emirror/general.cfg
-diff -urN emirror-2.1.17/etc/general.cfg.in emirror-2.1.17.pld/etc/general.cfg.in
---- emirror-2.1.17/etc/general.cfg.in	Sun Aug 20 17:28:41 2000
-+++ emirror-2.1.17.pld/etc/general.cfg.in	Sat Sep  9 19:45:00 2000
+-emirror -v -c @sysconfdir@/emirror/general.cfg -n @HTMLDIR@
++emirror -v -c @sysconfdir@/emirror/general.cfg
+diff -ur emirror-2.1.21.orig/configure.in emirror-2.1.21/configure.in
+--- emirror-2.1.21.orig/configure.in	Sat Feb 16 08:42:14 2002
++++ emirror-2.1.21/configure.in	Mon May 20 16:00:50 2002
+@@ -27,7 +27,7 @@
+ AC_MSG_CHECKING(for Python version >= 1.5 )
+ AC_ARG_WITH(python)
+ PYTHONVERSION=`python -c "import sys,string;x=sys.version;print string.split(x)[[0]]"`
+-echo -n $PYTHONVERSION\ 
++echo -n $PYTHONVERSION
+ PYTHONMAJOR=`echo $PYTHONVERSION | awk -F . '{print $1}'`
+ PYTHONMINOR=`echo $PYTHONVERSION | awk -F . '{print $2}'`
+ if test $PYTHONMAJOR -lt 2
+diff -ur emirror-2.1.21.orig/etc/general.cfg.in emirror-2.1.21/etc/general.cfg.in
+--- emirror-2.1.21.orig/etc/general.cfg.in	Fri Apr 13 09:21:43 2001
++++ emirror-2.1.21/etc/general.cfg.in	Mon May 20 15:58:36 2002
 @@ -1,18 +1,21 @@
  [general]
 +Download-url: ftp://localhost/pub/mirrors
@@ -35,7 +84,7 @@ diff -urN emirror-2.1.17/etc/general.cfg.in emirror-2.1.17.pld/etc/general.cfg.i
 +Follow-Symlinks: Yes
  Username: anonymous
 -Password: anonymous@localhost
--Error-MailCmd: mail -s "EMirror Error Report" Martin.Preishuber@eclipt.uni-klu.ac.at
+-Error-MailCmd: mail -s "EMirror Error Report" Martin.Preishuber@eclipt.at
 +Password: emirror@localhost
 +Error-MailCmd: mail -s "EMirror Error Report" ftp@localhost
  Mail-Users: @SYSCONFDIR@/emirror/email-addresses
@@ -43,13 +92,40 @@ diff -urN emirror-2.1.17/etc/general.cfg.in emirror-2.1.17.pld/etc/general.cfg.i
  Log-Template: @SYSCONFDIR@/emirror/logfile.template
  Index-Template: @SYSCONFDIR@/emirror/index.template
  Index-Directory: @HTMLDIR@
--Summary-Template: @SYSCONFDIR/emirror/summary.template
+-Summary-Template: @SYSCONFDIR@/emirror/summary.template
 \ No newline at end of file
 +Summary-Template: @SYSCONFDIR@/emirror/summary.template
-diff -urN emirror-2.1.17/man/emirror.1 emirror-2.1.17.pld/man/emirror.1
---- emirror-2.1.17/man/emirror.1	Sun Aug 20 17:31:36 2000
-+++ emirror-2.1.17.pld/man/emirror.1	Sat Sep  9 19:40:24 2000
-@@ -117,7 +117,7 @@
+diff -ur emirror-2.1.21.orig/etc/themes/eclipt-php/index.template emirror-2.1.21/etc/themes/eclipt-php/index.template
+--- emirror-2.1.21.orig/etc/themes/eclipt-php/index.template	Mon Aug 13 22:26:48 2001
++++ emirror-2.1.21/etc/themes/eclipt-php/index.template	Mon May 20 15:58:36 2002
+@@ -1,4 +1,4 @@
+-<? include "/home/httpd/htdocs/include/emirror.inc"; ?>
++<? include "emirror.inc"; ?>
+ <? FullHtmlHeader("$title$"); ?>
+ 
+   <script language="JavaScript">
+diff -ur emirror-2.1.21.orig/etc/themes/eclipt-php/logfile.template emirror-2.1.21/etc/themes/eclipt-php/logfile.template
+--- emirror-2.1.21.orig/etc/themes/eclipt-php/logfile.template	Mon Aug 13 21:33:35 2001
++++ emirror-2.1.21/etc/themes/eclipt-php/logfile.template	Mon May 20 15:58:36 2002
+@@ -1,4 +1,4 @@
+-<? include "/home/httpd/htdocs/include/emirror.inc"; ?>
++<? include "emirror.inc"; ?>
+ <? FullHtmlHeader("$title$"); ?>
+ 
+   <script language="JavaScript">
+diff -ur emirror-2.1.21.orig/etc/themes/eclipt-php/summary.template emirror-2.1.21/etc/themes/eclipt-php/summary.template
+--- emirror-2.1.21.orig/etc/themes/eclipt-php/summary.template	Mon Aug 13 22:27:09 2001
++++ emirror-2.1.21/etc/themes/eclipt-php/summary.template	Mon May 20 15:58:36 2002
+@@ -1,4 +1,4 @@
+-<? include "/home/httpd/htdocs/include/emirror.inc"; ?>
++<? include "emirror.inc"; ?>
+ <? FullHtmlHeader("$title$"); ?>
+ 
+   <script language="JavaScript">
+diff -ur emirror-2.1.21.orig/man/emirror.1 emirror-2.1.21/man/emirror.1
+--- emirror-2.1.21.orig/man/emirror.1	Mon Sep 10 17:38:16 2001
++++ emirror-2.1.21/man/emirror.1	Mon May 20 15:58:36 2002
+@@ -120,7 +120,7 @@
  .IP "--mail-users"
  Specifies a file, which contains a list of valid email-addresses
  of users, who want to get information about updates
@@ -58,7 +134,7 @@ diff -urN emirror-2.1.17/man/emirror.1 emirror-2.1.17.pld/man/emirror.1
  .IP "--info-mailcmd"
  Command to send mail to users when one spcific mirror has been updated
  (e.g. mail -s "EMirror - Package updated: %s" user1@host1 user2@host2)
-@@ -461,11 +461,11 @@
+@@ -480,11 +480,11 @@
  .IR EMIRRORCFGPATH
  
  .SH FILES
@@ -75,70 +151,3 @@ diff -urN emirror-2.1.17/man/emirror.1 emirror-2.1.17.pld/man/emirror.1
  
  .SH UNRESTRICTIONS
  .PP
---- emirror-2.1.17/Makefile.in~	Tue Aug 15 13:59:15 2000
-+++ emirror-2.1.17/Makefile.in	Sat Sep  9 19:51:04 2000
-@@ -5,38 +5,38 @@
- PYTHON=@PYTHON@
- libdir=$(prefix)/lib/emirror
--etcdir=$(sysconfdir)/emirror
--mandir=$(prefix)/man/man1
-+etcdir=@sysconfdir@/emirror
-+mandir=@mandir@/man1
- 
- all: 
- 	@echo There\'s no need to compile anything - use \"make install\"
- 
- install :
--	@echo Installing files in $(prefix) ...
--	@$(INSTALL) -d $(bindir)
--	@$(INSTALL) emirror $(bindir)
--	@$(INSTALL) emirrortest $(bindir)
--	@$(INSTALL) -d $(libdir)
--	@$(INSTALL) -m 644 main.py $(libdir)
--	@$(INSTALL) -m 644 constants.py $(libdir)
--	@$(INSTALL) -m 644 error.py $(libdir)
--	@$(INSTALL) -m 644 tools.py $(libdir)
--	@$(INSTALL) -m 644 ftplibbeta.py $(libdir)
--	@echo Copying example configuration files to $(etcdir) ...
--	@$(INSTALL) -d $(etcdir)
--	@$(INSTALL) -m 644 etc/*.cfg $(etcdir)
--	@$(INSTALL) -m 644 etc/email-addresses $(etcdir)
--	@$(INSTALL) -m 644 etc/*.template $(etcdir)
--	@$(INSTALL) -m 644 etc/*.gif $(etcdir)
--	@$(INSTALL) -d $(etcdir)/active
--	@$(INSTALL) -d $(etcdir)/unused
--	@$(INSTALL) -m 644 etc/unused/*.cfg $(etcdir)/unused
--	@$(INSTALL) -m 755 bin/mirror $(bindir)
--	@$(INSTALL) -m 755 bin/updateindex $(bindir)
-+	@echo Installing files in $(DESTDIR)$(prefix) ...
-+	@$(INSTALL) -d $(DESTDIR)$(bindir)
-+	@$(INSTALL) emirror $(DESTDIR)$(bindir)
-+	@$(INSTALL) emirrortest $(DESTDIR)$(bindir)
-+	@$(INSTALL) -d $(DESTDIR)$(libdir)
-+	@$(INSTALL) -m 644 main.py $(DESTDIR)$(libdir)
-+	@$(INSTALL) -m 644 constants.py $(DESTDIR)$(libdir)
-+	@$(INSTALL) -m 644 error.py $(DESTDIR)$(libdir)
-+	@$(INSTALL) -m 644 tools.py $(DESTDIR)$(libdir)
-+	@$(INSTALL) -m 644 ftplibbeta.py $(DESTDIR)$(libdir)
-+	@echo Copying example configuration files to $(DESTDIR)$(etcdir) ...
-+	@$(INSTALL) -d $(DESTDIR)$(etcdir)
-+	@$(INSTALL) -m 644 etc/*.cfg $(DESTDIR)$(etcdir)
-+	@$(INSTALL) -m 644 etc/email-addresses $(DESTDIR)$(etcdir)
-+	@$(INSTALL) -m 644 etc/*.template $(DESTDIR)$(etcdir)
-+	@$(INSTALL) -m 644 etc/*.gif $(DESTDIR)$(etcdir)
-+	@$(INSTALL) -d $(DESTDIR)$(etcdir)/active
-+	@$(INSTALL) -d $(DESTDIR)$(etcdir)/unused
-+	@$(INSTALL) -m 644 etc/unused/*.cfg $(DESTDIR)$(etcdir)/unused
-+	@$(INSTALL) -m 755 bin/mirror $(DESTDIR)$(bindir)
-+	@$(INSTALL) -m 755 bin/updateindex $(DESTDIR)$(bindir)
- 	@echo Installing manpage
--	@$(INSTALL) -d $(mandir)
--	@$(INSTALL) -m 644 man/emirror.1 $(mandir)
-+	@$(INSTALL) -d $(DESTDIR)$(mandir)
-+	@$(INSTALL) -m 644 man/emirror.1 $(DESTDIR)$(mandir)
- 	@echo Compiling python modules ...
--	@(PYTHONPATH=$(libdir); export PYTHONPATH; $(bindir)/emirror > /dev/null 2>&1)
-+	@(PYTHONPATH=$(DESTDIR)$(libdir); export PYTHONPATH; $(DESTDIR)$(bindir)/emirror > /dev/null 2>&1)
- 	@echo Don\'t forget to set some environment variables:
- 	@echo
- 	@echo     PATH should contain $(bindir)
