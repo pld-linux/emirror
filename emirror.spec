@@ -10,6 +10,7 @@ Group(de):	Netzwerkwesen/Werkzeuge
 Source0:	ftp://eclipt.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}.tar.gz
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-php.patch
+Patch2:		%{name}-python2.0.patch
 BuildRequires:	python-devel
 Requires:	python
 BuildArch:	noarch
@@ -25,6 +26,7 @@ Program do mirrorowania FTP.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 autoconf
