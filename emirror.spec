@@ -27,11 +27,13 @@ Program do mirrorowania FTP.
 %build
 autoconf
 %configure \
-	--with-htmldir=/home/httpd/html
+	--with-htmldir=/home/httpd/html/mirrors
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
+
+install -d $RPM_BUILD_ROOT/home/httpd/html/mirrors
 
 gzip -9nf doc/* $RPM_BUILD_ROOT%{_mandir}/man1/*
 
@@ -41,6 +43,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc doc/*
+%dir /home/httpd/html/mirrors
 %config(noreplace) %{_sysconfdir}/emirror
 %attr(755,root,root) %{_bindir}/*
 %{_libdir}/emirror
