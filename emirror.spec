@@ -38,7 +38,7 @@ install -d $RPM_BUILD_ROOT/home/httpd/html/mirrors
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf doc/* $RPM_BUILD_ROOT%{_mandir}/man1/*
+gzip -9nf doc/*
 
 %clean
 rm -rf $RPM_BUILD_ROOT
