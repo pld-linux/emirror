@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Networking/Utilities
 Source0:	ftp://eclipt.uni-klu.ac.at/pub/projects/emirror/%{name}-%{version}.tar.gz
+# Source0-md5:	4223966e49284e70a8eeabe9603d1ae3
 Patch0:		%{name}-pld.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
