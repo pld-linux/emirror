@@ -43,8 +43,3 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/emconvert
 %attr(755,root,root) %{_bindir}/emirror
 %{_libdir}/emirror
-
-%changelog
-* Sat Dec 05 1998 Arkadiusz Mi¶kiewicz <misiek@misiek.eu.org>
-  [2.0b6-1]
-- initial rpm release.
