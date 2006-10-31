@@ -1,3 +1,4 @@
+# TODO: webapps or so
 Summary:	FTP mirroring program
 Summary(pl):	Program do mirrorowania FTP
 Name:		emirror
