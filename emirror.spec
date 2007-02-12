@@ -1,6 +1,6 @@
 # TODO: webapps or so
 Summary:	FTP mirroring program
-Summary(pl):	Program do mirrorowania FTP
+Summary(pl.UTF-8):   Program do mirrorowania FTP
 Name:		emirror
 Version:	2.1.21
 Release:	4
@@ -20,7 +20,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 FTP mirroring program.
 
-%description -l pl
+%description -l pl.UTF-8
 Program do mirrorowania FTP.
 
 %prep
